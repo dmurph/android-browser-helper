@@ -1,7 +1,5 @@
-# Design Documents Index
+# Design Documents
 
-This file tracks all Technical Design Documents created for the Android Browser Helper project.
-
-| ID | Title | Status | Date | Bug | Parent Plan |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| | | | | | |
+| ID | Title | Status | Date |
+|---|---|---|---|
+| 0001 | [Design: TWA Shortcut Launcher Activity](0001-twa-shortcut-launcher-activity.md) | Draft | 2026-08-12 |
