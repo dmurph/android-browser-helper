@@ -108,9 +108,24 @@ By decoupling the async launch process from the Activity lifecycle, `ShortcutTra
     *   Verify `ShortcutTrampolineActivity` calls `finish()` synchronously in `onCreate()`.
     *   Verify `ShortcutTrampolineActivity` instantiates `TwaLauncher` using the Application Context, not the Activity Context.
 *   **Manual Testing:**
-    *   Build a demo app with `shortcuts.xml` pointing to `ShortcutTrampolineActivity`.
-    *   Run app on ChromeOS Desktop / windowed environment.
-    *   Click shortcut while app is running in the background; verify the app is brought to foreground without corrupting window state or vanishing from the taskbar.
+    *   **Environment Setup (DAL Bypass in Chrome):**
+        1. Open Chrome in the target Android Desktop environment/emulator.
+        2. Navigate to `chrome://flags/#enable-command-line-on-non-rooted-devices` and set to **Enabled**, then relaunch Chrome.
+        3. Execute command to bypass Digital Asset Link (DAL) verification for the test domain (`https://airhorner.com`):
+           ```bash
+           adb shell "echo '_ --disable-digital-asset-link-verification-for-url=\"https://airhorner.com\"' > /data/local/tmp/chrome-command-line"
+           adb shell am force-stop com.android.chrome
+           ```
+    *   **Build & Installation:**
+        1. Build and install the `twa-basic` demo app using the correct SDK/JDK environment configuration:
+           ```bash
+           ANDROID_HOME=<path_to_android_sdk> JAVA_HOME=<path_to_jdk21> ./gradlew :demos:twa-basic:installDebug
+           ```
+    *   **Execution & Expected Results:**
+        1. Locate **"Basic TWA"** in the app launcher of your Android Desktop.
+        2. Right-click or long-press the icon to reveal the application shortcuts menu.
+        3. Click the **"TWA Shortcut"** entry.
+        4. **Expected Result:** The Trusted Web Activity launches immediately to `https://airhorner.com/fake-shortcut` (which will return a 404) without displaying a Custom Tabs toolbar (confirming DAL bypass). The trampoline finishes instantly in the background, and the Android Desktop WindowManager correctly maintains input focus and taskbar integration (does not force fullscreen or cause the window to become unresponsive).
 
 ## 7. Detailed Implementation
 

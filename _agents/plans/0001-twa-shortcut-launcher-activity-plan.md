@@ -3,7 +3,7 @@ id: "0001"
 title: "Plan: TWA Shortcut Launcher Activity"
 project: "android-browser-helper"
 author: "Antigravity"
-status: "not-started"
+status: "completed"
 date: "2026-08-12"
 design_doc: "../designs/0001-twa-shortcut-launcher-activity.md"
 bug: "b/532016408, b/543098328"
@@ -28,8 +28,8 @@ Security-wise, because the Activity is exported to accept shortcut intents, the 
 
 ## 3. Progress
 
-- [ ] **Milestone 1: Create `ShortcutTrampolineActivity`, Manifest, and Unit Tests**
-- [ ] **Milestone 2: Apply trampoline to Demo App shortcuts and Update Documentation**
+- [x] **Milestone 1: Create `ShortcutTrampolineActivity`, Manifest, and Unit Tests**
+- [x] **Milestone 2: Apply trampoline to Demo App shortcuts and Update Documentation**
 
 ## 4. Surprises & Discoveries
 
@@ -73,7 +73,7 @@ Security-wise, because the Activity is exported to accept shortcut intents, the 
 ### Milestone 2: Apply trampoline to Demo App shortcuts and Update Documentation
 
 *   **Concrete Steps:**
-    - Update `demos/twa-custom-launcher/src/main/res/xml/shortcuts.xml` points to `com.google.androidbrowserhelper.trusted.ShortcutTrampolineActivity`.
+    - Create `demos/twa-basic/src/main/res/xml/shortcuts.xml` pointing to `com.google.androidbrowserhelper.trusted.ShortcutTrampolineActivity` and update its manifest.
     - Update other demo applications that utilize `shortcuts.xml` if applicable.
     - Update `README.md` and/or relevant files in `docs/` to explicitly instruct developers on how to configure `shortcuts.xml` safely using `ShortcutTrampolineActivity`.
     - Build command: `./gradlew assembleDebug`
